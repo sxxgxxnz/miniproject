@@ -91,6 +91,7 @@ public class Cubelogin extends JFrame implements ActionListener{
 						JOptionPane.QUESTION_MESSAGE);
 				
 				if(result == JOptionPane.YES_OPTION) System.exit(0);
+				if(result == JOptionPane.NO_OPTION) setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 			}
 		});
 		
@@ -101,10 +102,11 @@ public class Cubelogin extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource()==loginB) {
-			
+			new Cubelobby().event();;
+			dispose();
 			
 		}else if(e.getSource()==joinB) {
-			new Cubejoin();
+			new Cubejoin().event();
 			
 			
 		}
@@ -121,6 +123,7 @@ public class Cubelogin extends JFrame implements ActionListener{
 	
 	public static void main(String[] args) {
 		new Cubelogin().event();
+
 		
 	}
 }
