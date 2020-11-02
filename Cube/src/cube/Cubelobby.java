@@ -1,32 +1,24 @@
 package cube;
 
-import java.awt.Container;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.*;
+import java.awt.List;
+import java.awt.event.*;
+import java.util.*;
 import java.io.PrintWriter;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
+import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
 
 public class Cubelobby extends JFrame implements ActionListener{
     JTextField input;
-    JList user;
+    JList<UserDTO> user;
+    JList room;
     JTextArea output;
 	JButton createB, loadB, send;
     PrintWriter pw;
+	DefaultListModel<UserDTO> model;
+	DefaultListModel roommodel;
+	//List<UserDTO> dtoList;
 	
 	public Cubelobby(){
 		//로비 채팅부분
@@ -40,6 +32,17 @@ public class Cubelobby extends JFrame implements ActionListener{
 		
 		send = new JButton("보내기");
 		
+		//로그인 접속자 리스트
+		model=new DefaultListModel<UserDTO>();
+		user=new JList<UserDTO>(model);
+		user.setBounds(755, 5, 200, 200);
+		
+		//생성된 게임룸 리스트
+		roommodel=new DefaultListModel();
+		room=new JList(model);
+		room.setBounds(62,5,630,250);
+		
+		
 		JPanel p1 = new JPanel();
 		p1.setBounds(30,500,700,50);
 		p1.add(input);
@@ -52,37 +55,39 @@ public class Cubelobby extends JFrame implements ActionListener{
 		
 		Image img = Toolkit.getDefaultToolkit().getImage("루미큐브.PNG");
 		// 루미큐브 이미지 넣기
-		DefaultListModel<String> m = new DefaultListModel<>();
-		m.addElement("");
-		user = new JList(m);
+//		DefaultListModel<String> m = new DefaultListModel<>();
+//		m.addElement("");
+//		user = new JList(m);
 		//리스트 , 대기방 창
 
-		JPanel p1b = new JPanel();
-		p1b.add(user);
-		p1b.setBounds(750,0,200,150);
-		
+//		JPanel p1b = new JPanel();
+//		p1b.add(user);
+//		p1b.setBounds(750,0,200,150);
+//		
 		//방 만들기 들어가기
 		createB = new JButton("방 만들기");
 		loadB = new JButton("방 들어가기");
 
+		createB.setFont(new Font("맑은고딕", Font.BOLD, 28));
+		loadB.setFont(new Font("맑은고딕", Font.BOLD, 25));
 		
 		JPanel p2 = new JPanel();
 		p2.add(createB);
-		p2.setBounds(810,400,90,50);
+		p2.setBounds(770,400,170,60);
 		
 		JPanel p3 = new JPanel();
 		p3.add(loadB);
-		p3.setBounds(800,500,110,50);
+		p3.setBounds(770,500,170,60);
 		
 
 		Container c = this.getContentPane();
 		c.add(p1);
 		c.add(p1a);
-		c.add(p1b);
+		//c.add(p1b);
 		c.add(p2);
 		c.add(p3);
-		
-		
+		c.add(user);
+		c.add(room);
 		
 		
 		setLayout(null);
@@ -90,6 +95,14 @@ public class Cubelobby extends JFrame implements ActionListener{
 		setVisible(true);
 		setResizable(false);
 		
+		//모든 레코드를 꺼내서 JList에 뿌리기
+		/*
+		 * SignUPDAO dao=SignUpDAO.getInstance();
+		 * dtoList=dao.get	-> friend자료 참고
+		 * 
+		 * for(FriendDTO dto:dtoList){
+		 * model.addElement(dto);
+		 */
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {

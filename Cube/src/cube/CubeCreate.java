@@ -49,11 +49,14 @@ public class CubeCreate extends JFrame implements ActionListener{
 		setBounds(700,370,350,200);
 		setVisible(true);
 		setResizable(false);
+		
+		
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()== okB) {
+			new Cubegame().event();
 		       dispose();// 로그인 연결
 			}else if(e.getSource()==cancelB) {
 				dispose();

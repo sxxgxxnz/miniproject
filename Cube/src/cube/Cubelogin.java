@@ -13,12 +13,15 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class Cubelogin extends JFrame implements ActionListener{
 	JLabel email, pw, name,login;
-	JTextField emailT, pwT, nameT;
+	JTextField emailT, nameT;
+	JPasswordField pwT;
 	JButton loginB, joinB;
+	
 
 	public Cubelogin() {
 		
@@ -28,7 +31,7 @@ public class Cubelogin extends JFrame implements ActionListener{
 	//	name = new JLabel("Nickname");
 		
 		emailT = new JTextField(30);
-		pwT = new JTextField(30);
+		pwT = new JPasswordField(30);
 	//	nameT = new JTextField();
 		
       	loginB = new JButton("게임 시작!!");
@@ -102,7 +105,11 @@ public class Cubelogin extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource()==loginB) {
-			new Cubelobby().event();;
+			String id = emailT.getText();
+			int turn = 0;
+			UserDTO dto = new UserDTO();
+			dto.setId(id);
+			new Cubelobby().event();
 			dispose();
 			
 		}else if(e.getSource()==joinB) {
