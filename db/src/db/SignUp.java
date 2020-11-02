@@ -5,8 +5,10 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class SignUp extends JFrame implements ActionListener {
-	private JLabel email, pw, name;
-	private JTextField emailT, nameT;
+	private JLabel email, pw, name,birth,sex;
+	private JTextField emailT, nameT,birthT;
+	private JRadioButton male,female;
+	
 	private TextField pwT;
 	private JButton regiBtn, loginBtn, checkidBtn;
 	private SignUpDAO dao = new SignUpDAO();
@@ -16,11 +18,22 @@ public class SignUp extends JFrame implements ActionListener {
 		name = new JLabel("이름");
 		pw = new JLabel("비밀번호");
 		email = new JLabel("이메일");
-
+		birth=new JLabel("생년월일 (YYMMDD)형식으로 작성");
+		sex=new JLabel("성별");
+		
 		nameT = new JTextField(20);
 		pwT = new TextField(20);
 		emailT = new JTextField(20);
+		birthT=new JTextField(20);
+		
+		male=new JRadioButton("남성",true);
+		female=new JRadioButton("여성");
 
+		ButtonGroup group=new ButtonGroup();
+		group.add(male);
+		group.add(female);
+		
+		
 		regiBtn = new JButton("등록");
 		//loginBtn = new JButton("로그인");
 		checkidBtn = new JButton("아이디 중복체크");
@@ -40,8 +53,13 @@ public class SignUp extends JFrame implements ActionListener {
 		p3.add(email);
 		p3.add(emailT);
 
-		JPanel p4 = new JPanel();
-		p4.add(regiBtn);
+		JPanel p4=new JPanel();
+		p4.add(sex);
+		p4.add(male);
+		p4.add(female);
+		
+		JPanel p5 = new JPanel();
+		p5.add(regiBtn);
 		//p4.add(loginBtn);
 		//p4.add(checkidBtn);
 		
@@ -49,11 +67,11 @@ public class SignUp extends JFrame implements ActionListener {
 		inputP.add(p1);
 		inputP.add(p2);
 		inputP.add(p3);
-		// inputP.add(p4);
+		inputP.add(p4);
 
 		Container c = this.getContentPane();
 		c.add("Center", inputP);
-		c.add("South", p4);
+		c.add("South", p5);
 
 		setBounds(700, 300, 650, 530);
 		setVisible(true);
@@ -63,7 +81,7 @@ public class SignUp extends JFrame implements ActionListener {
 
 	public void event() {
 		regiBtn.addActionListener(this);
-		//loginBtn.addActionListener(this);
+		
 		checkidBtn.addActionListener(this);
 
 	}
@@ -100,12 +118,20 @@ public class SignUp extends JFrame implements ActionListener {
 		String name = nameT.getText();
 		String pw = pwT.getText();
 		String email = emailT.getText();
-
+		int gender=0;
+		if(male.isSelected())
+			gender=0;
+		else if(female.isSelected())
+			gender=1;
+		String birth=birthT.getText();
+		
 		UserDTO dto = new UserDTO();
 		dto.setName(name);
 		dto.setEmail(email);
 		dto.setPw(pw);
-
+		dto.setBirth(birth);
+		dto.setSex(gender);
+		
 		dao.insertArticle(dto);
 
 		System.out.println("등록 완료");

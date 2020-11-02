@@ -30,7 +30,7 @@ public class SignUpDAO {
 	}// getConnection
 
 	public void insertArticle(UserDTO dto) {
-		String sql = "insert into userInfo values(?,?,?,1000)";
+		String sql = "insert into userInfo values(?,?,?,1000,?,?)";
 		getConnection();
 
 		try {
@@ -38,7 +38,9 @@ public class SignUpDAO {
 			pstmt.setString(1, dto.getName());
 			pstmt.setString(2, dto.getPw());
 			pstmt.setString(3, dto.getEmail());
-
+			pstmt.setString(4, dto.getBirth());
+			pstmt.setInt(5, dto.getSex());
+			
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {

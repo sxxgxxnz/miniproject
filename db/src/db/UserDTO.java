@@ -1,7 +1,8 @@
 package db;
 
 public class UserDTO {
-	private String name,pw,email;
+	private String name,pw,email,birth;
+	private int sex;
 
 	public String getName() {
 		return name;
@@ -25,6 +26,22 @@ public class UserDTO {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getBirth() {
+		return birth;
+	}
+
+	public void setBirth(String birth) {
+		this.birth = birth;
+	}
+
+	public int getSex() {
+		return sex;
+	}
+
+	public void setSex(int sex) {
+		this.sex = sex;
 	}
 	
 	
