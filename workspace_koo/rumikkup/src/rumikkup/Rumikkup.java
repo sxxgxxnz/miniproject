@@ -13,16 +13,15 @@ public class Rumikkup {
 	private int whosTurn = 0;
 	private int cardGroup = 0;
 	private int[] gameSlot = new int[180]; // ArrayList처럼 빈칸을 땅기면 안되서 ArrayList 사용 불가
-										   // userCardList는 플레이수에 맞춰 있어야 하기에 userDTO에 포함
+	private int[] tempSlot = new int[180];									   // userCardList는 플레이수에 맞춰 있어야 하기에 userDTO에 포함
 	
 	private String[] userId = new String[4]; // 받아올값
 
 	public Rumikkup() {
-		// 카드 생성
-		makeCard();
 
-//		// 초기 게임 셋팅
-//		setGame();
+
+		// 게임 시작
+//		startGame();
 //
 //		// 새로운 카드 뽑기
 //		newCard();
@@ -45,20 +44,35 @@ public class Rumikkup {
 	
 	
 	
-	public void save() {
-		int a = 0; // 카드 슬롯번호
-		CardDTO b = new CardDTO(1,Color.BLUE, 1); // 해당 슬롯에 들거나 카드DTO, UI로부터 받을 입력 값들
-		gameSlot[a] = b.getIndex();
-		//데이터가 몇개가 들어올지 모름.
+	public int skip() {
+		int pickedIndex = newCard();
+		whosTurn++;
+		return pickedIndex;
+		
 	}
 	
 	
 	
+	public void save(UserDTO userDTO) {
+		userList.set(userDTO.getTurn(),userDTO);
+		//gameSlot은 이미 바뀌어 있음.
+		
+		
+	}
+	
+	
+	public void goBack() {
+		gameSlot=tempSlot;
+		//userDTO는 아직 바꾸지 않았음
+	}
 	
 	
 	
-	public void sort() {
-		Collections.sort(userList.get(whosTurn).getUserSlotList()); //전체 번호 순 정렬
+	public ArrayList<CardDTO> sort(ArrayList<CardDTO> userSlotList) {
+//		Collections.sort(userList.get(whosTurn).getUserSlotList()); //전체 번호 순 정렬
+		Collections.sort(userSlotList); 
+//		return userList.get(whosTurn).getUserSlotList();
+		return userSlotList;
 	}
 	
 	
@@ -70,24 +84,29 @@ public class Rumikkup {
 	}
 	
 	
+	public void setGameSlot(int[] gameSlot) {
+		tempSlot = this.gameSlot;
+		this.gameSlot = gameSlot;
+		//얘는 두개의 파라미터를 받기 위해 선언한 메소드, Confirm하고 세트이며, Confirm보다 먼저 호출되어야 한다.
+	}
+	
+	public int[] getGameSlot() {
+		return this.gameSlot;
+	}
+	
+	public UserDTO rollBack(UserDTO userDTO) {
+		userDTO = userList.get(userDTO.getTurn());
+		return userDTO;
+	}
 	
 	
 	
-	public void confirm() {
-		//유저슬롯에서 게임슬롯으로 카드 옮기는 상황
-//		gameSlot[btn1] = userList.get(whosTurn).getUserSlotList().get(btn).getIndex(); //옮겨넣고
-//		userList.get(whosTurn).getUserSlotList().remove(btn); //삭제
-		
-		//게임슬롯에서 게임슬롯으로 카드 옮기는 상황
-//		gameSlot[btn] = gameSlot[btn1];
-//		gameSlot[btn1] = 0;
-		
-		// 첫 턴 여부 검사
-		if(userList.get(whosTurn).getFirstTurn()==0) {
-			firstTurn();
-			
-		}else if(userList.get(whosTurn).getFirstTurn()==1) {
-		
+	
+	
+
+	
+	public boolean confirm(UserDTO userDTO) {
+
 		//좌,우 비교
 		for(int i=0; i<8; i++) {
 			for(int j=0; j<18; i++) {
@@ -102,68 +121,88 @@ public class Rumikkup {
 							cardGroup++;
 						}//if
 					}else {
-						//원복//
+						goBack();
+						return false;
 					}
 				}else if(gameSlot[i+1]==-1) {
 					if(cardGroup>=2) {
-						//데이터 저장//
 						cardGroup=0;
 					}else {
-						//원복//
-					}
-				}
+						goBack();
+						return false;
+					}//if
+				}//if
 			}//for j
 		}//for i
+		
+		// 첫 턴 여부 검사
+//		if(userList.get(whosTurn).getFirstTurn()==0) {
+		if(userDTO.getFirstTurn()==0) {
+
+			int btnNum[] = new int[20];
+			
+			int total =0;
+//			내가 갖고 있는 gameSlotCard index랑 파라미터 gameSlotCard index랑 비교해서
+//			다른 카드만 골라내서 합을 구할 순 없나? UI쪽에서 button number를 int로 넘겨주기 어려움.
+			for (int i=0; i<count; i++) {
+//				total = total+userList.get(whosTurn).getUserSlotList().get(btn).getNum();
+				total = total+userDTO.getUserSlotList().get(btnNum).getNum();
+			}
+			if(total>=30) {
+
+			}else {
+				//이 메소드 탈출하고 false 리턴
+			}
+			
+			
 		}//if(for firstTurn)
 		whosTurn++;
+		userDTO.setFirstTurn(1);
+		save(userDTO);
+		return true;
+		
 	}//play
 
 
-	public void firstTurn() {
-		
-		int btn = 0; //버튼 통해서 들어올 인트값(슬롯번호)
-		if(userList.get(whosTurn).getUserSlotList().get(btn).getNum()
-		+userList.get(whosTurn).getUserSlotList().get(btn).getNum()
-		+userList.get(whosTurn).getUserSlotList().get(btn).getNum()>=30) {
-			//데이터 저장//
-		}else {
-			//원복//
-		}
-		
-		userList.get(whosTurn).setFirstTurn(1);
-		whosTurn++;
-	}
 	
 	
 	
-	public void makeCard() {
+	public ArrayList<UserDTO> startGame() {
 
 		int jokerNum = 15;
 		int initialIndex = 0;
-		for (int i = 0; i < 2; i++) {
-			for (int j = 1; j < 14; j++) {
-				cardList.add(new CardDTO(j, Color.RED, initialIndex));
+		
+			for (int i = 1; i < 14; i++) {
+				cardList.add(new CardDTO(i, Color.RED, initialIndex));
 				initialIndex++;
-			} // for j
-		} // for i
-		for (int i = 0; i < 2; i++) {
-			for (int j = 1; j < 14; j++) {
-				cardList.add(new CardDTO(j, Color.BLUE, initialIndex));
+				cardList.add(new CardDTO(i, Color.RED, initialIndex));
 				initialIndex++;
-			} // for j
-		} // for i
-		for (int i = 0; i < 2; i++) {
-			for (int j = 1; j < 14; j++) {
-				cardList.add(new CardDTO(j, Color.YELLOW, initialIndex));
+			} // for i
+		
+		
+			for (int i = 1; i < 14; i++) {
+				cardList.add(new CardDTO(i, Color.BLUE, initialIndex));
 				initialIndex++;
-			} // for j
-		} // for i
-		for (int i = 0; i < 2; i++) {
-			for (int j = 1; j < 14; j++) {
-				cardList.add(new CardDTO(j, Color.BLACK, initialIndex));
+				cardList.add(new CardDTO(i, Color.BLUE, initialIndex));
 				initialIndex++;
-			} // for j
-		} // for i
+			} // for i
+	
+		
+			for (int i = 1; i < 14; i++) {
+				cardList.add(new CardDTO(i, Color.YELLOW, initialIndex));
+				initialIndex++;
+				cardList.add(new CardDTO(i, Color.YELLOW, initialIndex));
+				initialIndex++;
+			} // for i
+		
+		
+			for (int i = 1; i < 14; i++) {
+				cardList.add(new CardDTO(i, Color.BLACK, initialIndex));
+				initialIndex++;
+				cardList.add(new CardDTO(i, Color.BLACK, initialIndex));
+				initialIndex++;
+			} // for i
+	
 		cardList.add(new CardDTO(jokerNum, Color.JOKER, initialIndex));
 		initialIndex++;
 		cardList.add(new CardDTO(jokerNum, Color.JOKER, initialIndex));
@@ -175,12 +214,9 @@ public class Rumikkup {
 			System.out.print(cardList.get(i).getNum() + " ");
 			System.out.println(cardList.get(i).getIndex());
 		}//for
-
 		System.out.println("카드는 총 " + cardList.size() + "장");
 
-	}// makeCard
-
-	public void setGame() {
+		
 		// 게임슬롯 카드 유무 표시
 		for (int i = 0; i < 180; i++) {
 			gameSlot[i] = -1;
@@ -201,7 +237,10 @@ public class Rumikkup {
 				userList.get(i).getUserSlotList().add(cardList.get(newCardIndex));
 			} // for j
 		} // for i
-	}// setGame
+		
+		return userList;
+		
+	}// startGame
 
 	public int newCard() {
 		int pickedIndex = ((int) (Math.random() * 106) + 1); // 1~106사이의 난수

@@ -69,9 +69,9 @@ public class CardDTO implements Comparable<CardDTO> {
 
 	@Override
 	public int compareTo(CardDTO s) {
-		if (this.num < s.getNum()) {
+		if (this.index < s.getIndex()) {
             return -1;
-        } else if (this.num > s.getNum()) {
+        } else if (this.index > s.getIndex()) {
             return 1;
         }
         return 0;
