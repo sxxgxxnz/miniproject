@@ -85,9 +85,8 @@ public class Rumikkup {
 		// 첫 턴 여부 검사
 		if(userList.get(whosTurn).getFirstTurn()==0) {
 			firstTurn();
+			
 		}else if(userList.get(whosTurn).getFirstTurn()==1) {
-		
-	
 		
 		//좌,우 비교
 		for(int i=0; i<8; i++) {
@@ -106,8 +105,9 @@ public class Rumikkup {
 						//원복//
 					}
 				}else if(gameSlot[i+1]==-1) {
-					if(cardGroup>=3) {
+					if(cardGroup>=2) {
 						//데이터 저장//
+						cardGroup=0;
 					}else {
 						//원복//
 					}
