@@ -32,13 +32,13 @@ public class Cubegame extends JFrame implements ActionListener{
 		user=new JList<UserDTO>(model);
 		user.setBounds(950,5,200,200);
 
-		output = new JTextArea("",5,20);
+		output = new JTextArea("",8,22);
 		
 		JScrollPane scroll = new JScrollPane(output);
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		output.setEditable(false);
 		
-		input = new JTextField(10);
+		input = new JTextField(13);
 		send = new JButton("º¸³»±â");
 		
 		
@@ -78,7 +78,7 @@ public class Cubegame extends JFrame implements ActionListener{
 		
 		JPanel p1 = new JPanel();
 		p1.add(up);
-		p1.setBounds(960,550,80,50);
+		p1.setBounds(960,500,80,50);
 		
 		JPanel p2 = new JPanel();
 		p2.add(re);
@@ -93,13 +93,14 @@ public class Cubegame extends JFrame implements ActionListener{
 		p4.setBounds(1080,600,80,50);
 		
 		JPanel p5 = new JPanel();
-		p1.setBounds(800,300,400,50);
-		p1.add(input);
-		p1.add(send);
+		p5.setBounds(850,350,400,50);
+		p5.add(input);
+		p5.add(send);
 		
 		JPanel p6 = new JPanel();
 		p6.add(output);
-		p6.setBounds(950,200,150,150);
+		p6.setBounds(940,210,220,250);
+	
 		
 		Container c = this.getContentPane();
 		c.add(gs);
