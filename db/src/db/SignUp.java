@@ -11,7 +11,7 @@ public class SignUp extends JFrame implements ActionListener {
 	
 	private TextField pwT;
 	private JButton regiBtn, loginBtn, checkidBtn;
-	private SignUpDAO dao = new SignUpDAO();
+	private RummiDAO dao = new RummiDAO();
 	private UserDTO dto = new UserDTO();
 
 	public SignUp() {
@@ -24,7 +24,7 @@ public class SignUp extends JFrame implements ActionListener {
 		nameT = new JTextField(20);
 		pwT = new TextField(20);
 		emailT = new JTextField(20);
-		birthT=new JTextField(20);
+		birthT=new JTextField("YYMMDD형식으로 쓰세요",20);
 		
 		male=new JRadioButton("남성",true);
 		female=new JRadioButton("여성");
@@ -53,6 +53,7 @@ public class SignUp extends JFrame implements ActionListener {
 		p3.add(email);
 		p3.add(emailT);
 
+		
 		JPanel p4=new JPanel();
 		p4.add(sex);
 		p4.add(male);
@@ -63,10 +64,16 @@ public class SignUp extends JFrame implements ActionListener {
 		//p4.add(loginBtn);
 		//p4.add(checkidBtn);
 		
+		JPanel p6=new JPanel();
+		p6.add(birth);
+		p6.add(birthT);
+		
+		
 		JPanel inputP = new JPanel();
 		inputP.add(p1);
 		inputP.add(p2);
 		inputP.add(p3);
+		inputP.add(p6);
 		inputP.add(p4);
 
 		Container c = this.getContentPane();
@@ -89,7 +96,8 @@ public class SignUp extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == regiBtn) {
-			insertArticle();
+			joinArticle();
+			
 		} else if (e.getSource() == loginBtn) {
 			//loginArticle();
 		} else if (e.getSource() == checkidBtn) {
@@ -114,7 +122,7 @@ public class SignUp extends JFrame implements ActionListener {
 
 
 
-	private void insertArticle() {
+	private void joinArticle() {
 		String name = nameT.getText();
 		String pw = pwT.getText();
 		String email = emailT.getText();
@@ -132,13 +140,10 @@ public class SignUp extends JFrame implements ActionListener {
 		dto.setBirth(birth);
 		dto.setSex(gender);
 		
-		dao.insertArticle(dto);
+		dao.joinArticle(dto);
 
 		System.out.println("등록 완료");
 	}
 
-	public static void main(String[] args) {
-		new SignUp().event();
-	}
-
+	
 }

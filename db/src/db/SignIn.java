@@ -90,11 +90,13 @@ public class SignIn extends JFrame implements ActionListener {
 			dto.setPw(pw);
 			System.out.println(dto.getName() + "\t" + dto.getPw());	//데이터를 잘 가져갔는지 확인
 
-			SignUpDAO dao = new SignUpDAO();
+			RummiDAO dao = new RummiDAO();
 			int result = dao.loginArticle(dto);
 			
 			if (result == 1) {
 				System.out.println("로그인 성공");
+				dao.userArticle(dto);
+				new Lobby();
 			} else if (result == 0) {
 				System.out.println("비밀번호 불일치");
 			} else if (result == -1) {
@@ -102,8 +104,11 @@ public class SignIn extends JFrame implements ActionListener {
 			} else
 				System.out.println("데이터베이스 오류");
 
+			
+			
+			
 		} else if (e.getSource() == joinB) {
-			new SignUp();
+			new SignUp().event();
 
 		}
 

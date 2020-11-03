@@ -2,7 +2,7 @@ package db;
 
 import java.sql.*;
 
-public class SignUpDAO {
+public class RummiDAO {
 	private Connection conn;
 	private PreparedStatement pstmt;
 
@@ -12,7 +12,7 @@ public class SignUpDAO {
 	private String password = "bit";
 	private ResultSet rs;
 
-	public SignUpDAO() {
+	public RummiDAO() {
 		try {
 			Class.forName(driver);
 		} catch (ClassNotFoundException e) {
@@ -29,7 +29,7 @@ public class SignUpDAO {
 		}
 	}// getConnection
 
-	public void insertArticle(UserDTO dto) {
+	public void joinArticle(UserDTO dto) {
 		String sql = "insert into userInfo values(?,?,?,1000,?,?)";
 		getConnection();
 
@@ -132,5 +132,32 @@ public class SignUpDAO {
 			} // try
 		} // try
 		return result; // 그냥 -3이 나왔을 경우 디비오류
+	}
+	
+	public void userArticle(UserDTO dto) {
+		String sql="insert into gamelist values(?)";
+		getConnection();
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getName());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				} // if
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} // try
+		} // try
+
+		
 	}
 }
