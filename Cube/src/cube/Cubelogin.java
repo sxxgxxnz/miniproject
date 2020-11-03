@@ -2,6 +2,7 @@ package cube;
 
 import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,41 +18,45 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class Cubelogin extends JFrame implements ActionListener{
-	JLabel email, pw, name,login;
-	JTextField emailT, nameT;
+	JLabel id, pw, name,login;
+	JTextField idT, nameT;
 	JPasswordField pwT;
-	JButton loginB, joinB;
+	JButton loginB, joinB , findid, findpw;
 	
 
 	public Cubelogin() {
 		
 		login = new JLabel("Login");
-		email = new JLabel("닉네임   : ");
+		id = new JLabel("닉네임    :  ");
 		pw = new JLabel("비밀번호 :  ");
 	//	name = new JLabel("Nickname");
 		
-		emailT = new JTextField(30);
+		idT = new JTextField(30);
 		pwT = new JPasswordField(30);
 	//	nameT = new JTextField();
 		
       	loginB = new JButton("게임 시작!!");
 		joinB = new JButton("회원가입");
 	//	cancelB = new JButton("취소");
+		findid = new JButton("아이디 찾기");
+		findpw = new JButton("비밀번호 찾기");
 		
 		
 		//setBounds(x,y,텍스트가로,텍스트세로)
 		//Login 글자
 		login.setBounds(250,1,100,50);
-		login.setFont(login.getFont().deriveFont(30.0f));
+		login.setFont(login.getFont().deriveFont(18.0f));
 
+		loginB.setFont(loginB.getFont().deriveFont(18.0f));
+		joinB.setFont(joinB.getFont().deriveFont(18.0f));
 		//Email,pw 글자크기
-		email.setFont(email.getFont().deriveFont(20.0f));
+		id.setFont(id.getFont().deriveFont(18.0f));
 		pw.setFont(pw.getFont().deriveFont(18.0f));
 		
 		
 		JPanel p1 = new JPanel();
-		p1.add(email);
-		p1.add(emailT);
+		p1.add(id);
+		p1.add(idT);
 		p1.setBounds(20,100,500,50);
 		
 		JPanel p2 = new JPanel();
@@ -61,12 +66,19 @@ public class Cubelogin extends JFrame implements ActionListener{
 		
 		JPanel p3 = new JPanel();
 		p3.add(loginB);
-		p3.setBounds(120,300,100,50);
+		p3.setBounds(70,300,210,50);
 		
 		JPanel p4 = new JPanel();
 		p4.add(joinB);
-		p4.setBounds(360,300,90,50);
+		p4.setBounds(330,300,180,50);
 		
+		JPanel p5 = new JPanel();
+		p5.add(findid);
+		p5.setBounds(50,200,110,40);
+		
+		JPanel p6 = new JPanel();
+		p6.add(findpw);
+		p6.setBounds(50,240,120,40);
 
 
 		
@@ -77,6 +89,8 @@ public class Cubelogin extends JFrame implements ActionListener{
 		c.add(p2);
 		c.add(p3);
 		c.add(p4);
+		c.add(p5);
+		c.add(p6);
 
 
 
@@ -105,7 +119,7 @@ public class Cubelogin extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource()==loginB) {
-			String id = emailT.getText();
+			String id = idT.getText();
 			int turn = 0;
 			UserDTO dto = new UserDTO();
 			dto.setId(id);

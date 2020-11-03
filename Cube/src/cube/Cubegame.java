@@ -2,13 +2,14 @@ package cube;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -17,14 +18,19 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
+import rumikkup.Rumikkup;
+import rumikkup.UserDTO;
+import rumikkup.CardDTO;
+
 public class Cubegame extends JFrame implements ActionListener{
-	JButton up,re,skip,ze ,send;
-	JList<UserDTO> user;
+	JButton up,re,skip,ze ,send , gamestart;
+	private JList<UserDTO> user;
     JTextArea output;
     JTextField input;
-	DefaultListModel<UserDTO> model;
-	
-	private JButton[] gsn=new JButton[180];
+	private DefaultListModel<UserDTO> model;
+	ArrayList<CardDTO>[] uh;
+	JButton[] gsn=new JButton[180];
+    JButton[] usn= new JButton[40];
 	
 	public Cubegame() {
 		
@@ -47,7 +53,7 @@ public class Cubegame extends JFrame implements ActionListener{
 		gs.setBounds(0,0,930,550);
 		for(int i = 0; i < 180; i++) {
 			
-			gs.add(gsn[i] = new JButton()).setBackground(new Color(0,193,193));
+			gs.add(gsn[i] = new JButton()).setBackground(new Color(255,255,255));
 		
 		}
 		JPanel us = new JPanel();		
@@ -55,7 +61,7 @@ public class Cubegame extends JFrame implements ActionListener{
 		us.setBounds(0,550,930,122);
 		us.setBackground(new Color(220,255,255));
 		for(int i = 0; i < 40; i++) {
-			us.add(new JButton()).setBackground(new Color(102,51,0));
+			us.add(usn[i] = new JButton()).setBackground(new Color(102,51,0));
 			
 		}
 		model = new DefaultListModel<UserDTO>();
@@ -63,18 +69,21 @@ public class Cubegame extends JFrame implements ActionListener{
 //		//list.setBounds(x, y, width, height);
 		
 		
-		
+		//버튼
 		up = new JButton("등록");
 		re = new JButton("취소");
 		skip = new JButton("스킵");
 		ze = new JButton("정렬");
+		gamestart = new JButton("START!");
 		
 		
 		up.setFont(up.getFont().deriveFont(18.0f));
 		re.setFont(re.getFont().deriveFont(18.0f));
 		skip.setFont(skip.getFont().deriveFont(18.0f));
 		ze.setFont(ze.getFont().deriveFont(18.0f));
+		gamestart.setFont(new Font ("HY백송B",Font.BOLD, 25));
 		
+
 		
 		JPanel p1 = new JPanel();
 		p1.add(up);
@@ -93,13 +102,17 @@ public class Cubegame extends JFrame implements ActionListener{
 		p4.setBounds(1080,600,80,50);
 		
 		JPanel p5 = new JPanel();
-		p5.setBounds(850,350,400,50);
+		p5.setBounds(850,350,400,35);
 		p5.add(input);
 		p5.add(send);
 		
 		JPanel p6 = new JPanel();
 		p6.add(output);
-		p6.setBounds(940,210,220,250);
+		p6.setBounds(940,210,220,200);
+		
+		JPanel p7 = new JPanel();
+		p7.add(gamestart);
+		p7.setBounds(980, 420,160,50);
 	
 		
 		Container c = this.getContentPane();
@@ -112,6 +125,7 @@ public class Cubegame extends JFrame implements ActionListener{
 		c.add(p4);
 		c.add(p5);
 		c.add(p6);
+		c.add(p7);
 		
 		
 		
@@ -124,14 +138,41 @@ public class Cubegame extends JFrame implements ActionListener{
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent e) {
+		for(int i=0; i<180; i++) {
+			if(e.getSource()==gsn[i]) {
+				
+			}
+		}
+		for(int i=0; i<40; i++) {
+			if(e.getSource()==usn[i]) {
+				
+			}
+		}
 		
+		if(e.getSource()==gamestart) {
+			Rumikkup a = new Rumikkup();
+			a.setGame();
+			a.makeCard();
+			gamestart.setVisible(false);
+
+			ArrayList<CardDTO> uh[] = new ArrayList[4];
+		//	for(int i= )
+			
+		}
+	
 		
 	}
-
+//	1번쨰 유저의 5번째 카드의 인덱스 정보 읽어 오기
+// userList.get(0).userSlotList.get(4).getIndex();
 	public void event() {
 		for(int i =0; i<180; i++) {
 			gsn[i].addActionListener(this);
+		}
+		for(int i = 0; i < 40; i++) {
+			usn[i].addActionListener(this);
+			gamestart.addActionListener(this);
+			
 		}
 		
 	}
