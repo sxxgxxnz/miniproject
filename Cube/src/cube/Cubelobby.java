@@ -4,8 +4,11 @@ import java.awt.*;
 import java.awt.List;
 import java.awt.event.*;
 import java.util.*;
+import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ListSelectionListener;
 
@@ -53,7 +56,8 @@ public class Cubelobby extends JFrame implements ActionListener{
 		p1a.setBounds(30,240,700,250);
 		
 		
-		Image img = Toolkit.getDefaultToolkit().getImage("루미큐브.PNG");
+		//	Image img = ImageIO.read(new File("루미큐브.PNG"));
+
 		// 루미큐브 이미지 넣기
 //		DefaultListModel<String> m = new DefaultListModel<>();
 //		m.addElement("");
@@ -78,6 +82,9 @@ public class Cubelobby extends JFrame implements ActionListener{
 		JPanel p3 = new JPanel();
 		p3.add(loadB);
 		p3.setBounds(770,500,170,60);
+		
+		JPanel p4 = new JPanel();
+	//	p4.add(img);
 		
 
 		Container c = this.getContentPane();
