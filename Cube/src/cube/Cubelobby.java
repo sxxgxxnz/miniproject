@@ -28,12 +28,12 @@ public class Cubelobby extends JFrame implements ActionListener {
 		// 로그인 접속자 리스트
 		model = new DefaultListModel<UserDTO>();
 		user = new JList<UserDTO>(model);
-		user.setBounds(755, 5, 200, 200);
+		user.setBounds(20, 310, 190, 190);
 
 		// 생성된 게임룸 리스트
 		roommodel = new DefaultListModel();
 		room = new JList(model);
-		room.setBounds(62, 5, 630, 250);
+		room.setBounds(20, 5, 500, 300);
 
 		// 방 만들기 들어가기
 		createB = new JButton("방 만들기");
@@ -44,12 +44,12 @@ public class Cubelobby extends JFrame implements ActionListener {
 
 		JPanel p2 = new JPanel();
 		p2.add(createB);
-		p2.setBounds(770, 400, 170, 60);
+		p2.setBounds(350, 330, 170, 60);
 
 		JPanel p3 = new JPanel();
 		p3.add(loadB);
-		p3.setBounds(770, 500, 170, 60);
-
+		p3.setBounds(350,430, 170, 60);
+		
 		JPanel p4 = new JPanel();
 		// p4.add(img);
 
