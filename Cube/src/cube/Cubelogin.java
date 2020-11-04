@@ -1,5 +1,6 @@
 package cube;
 
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -9,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,9 +24,10 @@ public class Cubelogin extends JFrame implements ActionListener{
 	JTextField idT, nameT;
 	JPasswordField pwT;
 	JButton loginB, joinB , findid, findpw;
-	
+
 
 	public Cubelogin() {
+		ImageIcon icon = new ImageIcon("버튼.jpg");
 		
 		login = new JLabel("Login");
 		id = new JLabel("닉네임    :  ");
@@ -35,7 +38,7 @@ public class Cubelogin extends JFrame implements ActionListener{
 		pwT = new JPasswordField(30);
 	//	nameT = new JTextField();
 		
-      	loginB = new JButton("게임 시작!!");
+      	loginB = new JButton(icon);
 		joinB = new JButton("회원가입");
 	//	cancelB = new JButton("취소");
 		findid = new JButton("아이디 찾기");
@@ -67,6 +70,10 @@ public class Cubelogin extends JFrame implements ActionListener{
 		JPanel p3 = new JPanel();
 		p3.add(loginB);
 		p3.setBounds(70,300,210,50);
+		loginB.setBorderPainted(false);
+		loginB.setContentAreaFilled(false);
+		loginB.setFocusPainted(false);
+
 		
 		JPanel p4 = new JPanel();
 		p4.add(joinB);
