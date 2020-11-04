@@ -162,17 +162,17 @@ public class Cubegame extends JFrame implements ActionListener {
 		} else if (e.getSource() == up) {
 			int index[]=new int[180];
 			
-			rumi.setGameSlot(index);
-			
-			gsn.isSelected.
-			
-			if(rumi.confirm(dto));
-				//등록한 카드를 모든 버튼에 반영시키기
-			else 
-				//오류창 -> 카드가 잘못되었습니다...???
+//			rumi.setGameSlot(index);
+//			
+//			gsn.isSelected.
+//			
+//			if(rumi.confirm(dto));
+//				//등록한 카드를 모든 버튼에 반영시키기
+//			else 
+//				//오류창 -> 카드가 잘못되었습니다...???
 				
 		} else if (e.getSource() == re) {
-			rumi.rollback();
+			//rumi.rollback();
 		} else if (e.getSource() == skip) {
 			//카드 한장 받고
 			int newcardindx=rumi.newCard();
@@ -180,7 +180,7 @@ public class Cubegame extends JFrame implements ActionListener {
 			//다음턴
 			//rumi.nextTurn();
 			turn++;
-			dto.setTurn(turn);
+			//dto.setTurn(turn);
 			
 		} else if (e.getSource() == ze) {
 			rumi.sort();
