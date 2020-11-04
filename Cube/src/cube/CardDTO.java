@@ -1,16 +1,17 @@
 package cube;
 
-enum Color{RED, BLUE, YELLOW, BLACK, JOKER}
+//버튼 컬러 바꾸기 위해 enum이름 바껐어요
+enum Colorcard{RED, BLUE, YELLOW, BLACK, JOKER}
 
 public class CardDTO{
-	private Color color;
+	private Colorcard color;
 	private int num;
 	private int index;
 	private String pic;
-	public Color getColor() {
+	public Colorcard getColor() {
 		return color;
 	}
-	public void setColor(Color color) {
+	public void setColor(Colorcard color) {
 		this.color = color;
 	}
 	public int getNum() {
