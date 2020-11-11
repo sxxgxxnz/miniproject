@@ -13,7 +13,7 @@ public class Cubelobby extends JFrame implements ActionListener{
     JTextField input;
     JList<UserDTO> user;
     JList room;
-    JTextArea output;
+	JTextArea output;
 	JButton createB, loadB, send;
     PrintWriter pw;
 	DefaultListModel<UserDTO> model;
